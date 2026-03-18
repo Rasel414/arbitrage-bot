@@ -287,4 +287,7 @@ def main():
  app.add_handler(MessageHandler(filters.TEXT&~filters.COMMAND,txt))
  print('✅ Cloud AI Ultra-Fast PRO running!')
  app.run_polling(drop_pending_updates=True)
-if __name__=='__main__':main()
+if __name__=='__main__':
+ import asyncio
+ asyncio.set_event_loop(asyncio.new_event_loop())
+ main()
