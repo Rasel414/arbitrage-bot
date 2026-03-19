@@ -279,7 +279,15 @@ async def txt(u,c):
  await ld.edit_text('✅ '+sym+' monitoring শুরু!\n\n'+bmsg(sym,r['px'],mp,lp)+'\n\n⚡CEX:'+str(CEX_CI)+'s | DEX:'+str(DEX_CI)+'s | 🔔'+str(AT)+'%',reply_markup=tkb(t,False))
 async def pi(app):
  asyncio.create_task(loop(app))
+import threading
+def run_web():
+ import http.server
+ server=http.server.HTTPServer(('0.0.0.0',10000),http.server.BaseHTTPRequestHandler)
+ server.serve_forever()
 def main():
+ t=threading.Thread(target=run_web)
+ t.daemon=True
+ t.start()
  app=Application.builder().token(TOKEN).post_init(pi).build()
  app.add_handler(CommandHandler('start',start))
  app.add_handler(CommandHandler('menu',start))
